@@ -1,21 +1,21 @@
 {
-  "title": "Your Blog Name",
-  "url": "https://example.com/",
+  "title": "Andrew Maier Blog",
+  "url": "https://mayormaier.github.io/11ty-base-blog/",
   "language": "en",
-  "description": "I am writing about my experiences as a naval navel-gazer.",
+  "description": "I am writing about my experiences as a beginner in web development and devops.",
   "feed": {
-    "subtitle": "I am writing about my experiences as a naval navel-gazer.",
+    "subtitle": "I am writing about my experiences as a beginner in web development and devops.",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://example.com/"
+    "id": "https://mayormaier.github.io/11ty-base-blog/"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
-    "url": "https://example.com/feed/feed.json"
+    "url": "https://mayormaier.github.io/11ty-base-blog/feed/feed.json"
   },
   "author": {
-    "name": "Your Name Here",
-    "email": "youremailaddress@example.com",
-    "url": "https://example.com/about-me/"
+    "name": "Andrew Maier",
+    "email": "maierandrewd@gmail.com",
+    "url": "https://mayormaier.github.io/11ty-base-blog/about-me/"
   }
 }
