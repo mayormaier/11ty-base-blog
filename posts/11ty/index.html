@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to build powerful sites from scratch with 11ty</title>
+    <meta name="description" content="Doing cool stuff in three different ways with 11ty.">
+    <link rel="stylesheet" href="/11ty-base-blog/css/index.css">
+    <link rel="stylesheet" href="/11ty-base-blog/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/11ty-base-blog/feed/feed.xml" type="application/atom+xml" title="Andrew Maier Blog">
+    <link rel="alternate" href="/11ty-base-blog/feed/feed.json" type="application/json" title="Andrew Maier Blog">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/11ty-base-blog/">Andrew Maier Blog</a></h1>
+      <ul class="nav">
+        <li class="nav-item"><a href="/11ty-base-blog/">Home</a></li>
+        <li class="nav-item"><a href="/11ty-base-blog/posts/">Archive</a></li>
+        <li class="nav-item"><a href="/11ty-base-blog/about/">About Me</a></li>
+      </ul>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>How to build powerful sites from scratch with 11ty</h1>
+
+<time datetime="2022-02-28">28 Feb 2022</time><a href="/11ty-base-blog/tags/web/" class="post-tag">web</a><a href="/11ty-base-blog/tags/11ty/" class="post-tag">11ty</a>
+
+<p>If you've been interested in the web space recently, you've heard of static site generators like 11ty and Jekyll. These pieces of software take easily written markup such as markdown, nunjucks, and liquid and turn them into content that is ready for the web. Many developers want to author blog posts for their own site, and 11ty provides a way to do just that.</p>
+<p>While on the surface it seems simple, theres a lot under the hood that makes 11ty a machine.</p>
+<h2 id="terms" tabindex="-1">Terms <a class="direct-link" href="#terms" aria-hidden="true">#</a></h2>
+<p>Before starting, it's important to know terms that 11ty uses to describe their files. The names sound similar, but the differentiations are important.</p>
+<ul>
+<li><strong>template</strong> - a file that contains content (written in a language like markdown)</li>
+<li><strong>layout</strong> - pre-built wrappers for templates. Used to define a common structure for a set of templates/pages</li>
+<li><strong>front matter</strong> - key-value pairs at the top of a template that define specific variables that are used when rendering pages in 11ty</li>
+<li><strong>data file</strong> - purpose built files that define variables to be inherited by all templates in a defined directory.
+<ul>
+<li>Ex. in the directory <code>/posts</code>, <code>/posts/posts.json</code> would be the directory data file, and would define variables that all other template files <code>/posts/*</code> should inherit.</li>
+</ul>
+</li>
+</ul>
+<h2 id="getting-started" tabindex="-1">Getting Started <a class="direct-link" href="#getting-started" aria-hidden="true">#</a></h2>
+<p>11ty can be intimidating at first, especially if you are new to command line tooling. To start, I followed the great getting started guide at</p>
+<p>Here, I will demonstrate three ways to build an 11ty site, both using templates and from scratch.</p>
+<h2 id="method-1:-from-scratch" tabindex="-1">Method 1: <a href="https://mayormaier.github.io/11ty-hello-horses/">From scratch</a> <a class="direct-link" href="#method-1:-from-scratch" aria-hidden="true">#</a></h2>
+<blockquote>
+<p>Shameless plug, I heavily leaned on the <a href="https://www.youtube.com/watch?v=PPZGdolA_ns&amp;t=7001s">great tutorial</a> by <a href="https://twitter.com/trostcodes?lang=en">Alex Trost</a> and <a href="https://twitter.com/BenDMyers">Ben Meyers</a> when completing this project.</p>
+</blockquote>
+<p>One nice thing about 11ty is that you can start out VERY basic, then build up in complexity.<br>
+To start,</p>
+<ol>
+<li>initialize a new npm package <code>npm init</code> and install 11ty <code>npm install @11ty/eleventy</code></li>
+<li>create some template files <code>somethingCool.md</code> and throw them in the project root</li>
+<li>run <code>npx eleventy --serve</code> and watch your templates turn into HTML in the <code>_site</code> directory</li>
+</ol>
+<p>Now lets kick it up a notch.<br>
+First lets provide some organization to our project.</p>
+<ol>
+<li>create an <code>.eleventy.js</code> file</li>
+<li>add <code>return { dir: { input: &quot;src&quot; } };</code> in a new <code>module.exports()</code> function</li>
+</ol>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> embeds <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"eleventy-plugin-embed-everything"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eleventyConfig</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    eleventyConfig<span class="token punctuation">.</span><span class="token function">addPlugin</span><span class="token punctuation">(</span>embeds<span class="token punctuation">)</span><span class="token punctuation">;</span><br>    eleventyConfig<span class="token punctuation">.</span><span class="token function">addWatchTarget</span><span class="token punctuation">(</span><span class="token string">'_site/assets/*.css'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    eleventyConfig<span class="token punctuation">.</span><span class="token function">setBrowserSyncConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>    <span class="token literal-property property">files</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'_site/assets/*.css'</span><span class="token punctuation">]</span><br>    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <br>    <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token literal-property property">dir</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">input</span><span class="token operator">:</span> <span class="token string">"src"</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p>An example <code>.eleventy.js</code> file. NOTE: this file contains additional plug in modules that you probably don't have installed yet. Only use this configuration if you have the defined modules installed.</p>
+<ol start="3">
+<li>create a new directory called <code>src</code></li>
+<li>move your precious templates to the new <code>src</code> directory</li>
+</ol>
+<p>Now, lets add some additional structure to our pages. When eleventy builds a page, it focuses on minimal HTML. No <code>&lt;head&gt;</code> information is included.</p>
+<ol>
+<li>in your <code>src</code> directory, add a <code>_includes</code> subdirectory. This is where you will store your layout files.</li>
+<li>create a new layout file. you can specify where the content should be inserted with ``</li>
+<li>specify this layout to be used in the front matter of a template using the <code>layout</code> key:</li>
+</ol>
+<pre class="language-markdown"><code class="language-markdown"><span class="token front-matter-block"><span class="token punctuation">---</span><br><span class="token front-matter yaml language-yaml">layout: layoutFilename</span><br><span class="token punctuation">---</span></span><br><br><span class="token list punctuation">-</span> cool<br><span class="token list punctuation">-</span> markdown</code></pre>
+<p>Lastly, lets add a plugin to this site. We will be installing the <a href="https://www.npmjs.com/package/eleventy-plugin-embed-everything">eleventy-embed-everything</a> plugin.</p>
+<ol>
+<li>install the plugin with <code>npm install eleventy-plugin-embed-everything --save</code></li>
+<li>add the plugin to the <code>.eleventy.js</code> file</li>
+</ol>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> embedEverything <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"eleventy-plugin-embed-everything"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eleventyConfig</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  eleventyConfig<span class="token punctuation">.</span><span class="token function">addPlugin</span><span class="token punctuation">(</span>embedEverything<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>Now you can embed media into the page simply by dropping its url on to the page.</p>
+<p><a href="https://www.11ty.dev/docs/getting-started/">More information</a><br>
+<a href="https://github.com/mayormaier/11ty-hello-horses">Source repository</a></p>
+<h2 id="method-2:-based-on-a-template" tabindex="-1">Method 2: <a href="https://mayormaier.github.io/11ty-base-blog/">Based on a template</a> <a class="direct-link" href="#method-2:-based-on-a-template" aria-hidden="true">#</a></h2>
+<p>The 11ty community has developed a plethora of templates that accomplish the initial configuration of 11ty quite well. Many of these sites contain a lot of useful tools and features, but on occasion this can bloat the final size of the project. The output files however remain flat and slender.</p>
+<p>The first step that I took when configuring this template was to modify the metadata of the site to match my details (name, url, email, etc.)</p>
+<p><img src="https://i.imgur.com/ww1RrOT.png" alt="Modified configuration items"></p>
+<p>Next, I modified the pathPrefix variable in the <code>.eleventy.js</code> file. This allows the site to be deployed to GitHub pages without explicitly defining the pathPrefix in page links (which would break the site in development).</p>
+<p>Lastly, I added my articles to the <code>/posts/</code> directory. Because much of the configuration has already been completed, it is pretty much plug and play for all of the articles. If additional subdirectories/categories are desired, more configuration is necessary.</p>
+<p>After inserting my articles, I specified some template metadata for each article. These vary slightly from the custom built template as different data variables are used, however they generally accomplish the same thing.</p>
+<p><img src="https://i.imgur.com/el03eOF.png" alt="Template data in the front matter"></p>
+<p><a href="https://eleventy-base-blog.netlify.app/">More Information</a><br>
+<a href="https://github.com/mayormaier/11ty-base-blog">Source Repository</a></p>
+<h2 id="method-3:-hax11ty" tabindex="-1">Method 3: <a href="https://mayormaier.github.io/11ty-hax11ty-blog/">hax11ty</a> <a class="direct-link" href="#method-3:-hax11ty" aria-hidden="true">#</a></h2>
+<p>hax11ty combines the powerful library of web components found in HAXCMS with the simplicity of static sites. Just like 11ty, it takes in template files, and outputs them as HTML. Just like in Method 2, utilizing a pre-built 11ty configuration saves a lot of time when you need to get a site off the ground quickly. With a clean theme and the addition of web components, hax11ty takes static sites to the next level.</p>
+<p>For example, adding the <code>&lt;video-player&gt;</code> tag to our markdown yields a rendered video-player component on the page.:</p>
+<pre class="language-markdown"><code class="language-markdown"><span class="token list punctuation">-</span> things<br><span class="token list punctuation">-</span> and<br><span class="token list punctuation">-</span> stuff<br><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video-player</span> <span class="token attr-name">source</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://www.youtube.com/watch?v=dQw4w9WgXcQ<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>video-player</span><span class="token punctuation">></span></span></code></pre>
+<p><img src="https://i.imgur.com/oTX4MeQ.png" alt="Page with the rendered video-player component"></p>
+<h2 id="data-structure" tabindex="-1">Data Structure <a class="direct-link" href="#data-structure" aria-hidden="true">#</a></h2>
+<p>When using 11ty, there is a clear division between source content and static HTML site files. 11ty will locate the content for your site, written in any of the supported templating languages, then convert it into HTML and place it into the <code>_site</code> directory. Within the <code>_site</code> directory, there is an exact clone of the directory structure where all of the source files lived previously. This <code>_site</code> directory is key, because this is the directory that includes the HTML files needed to power a website. The <code>_site</code> directory can be zipped and uploaded to a website hosting platform.</p>
+<p><img src="https://i.imgur.com/cAx5e8J.png" alt="Template files (source)"></p>
+<p><img src="https://i.imgur.com/D4gpoxf.png" alt="Output files"></p>
+<p>These HTML files are generated through a process that 11ty calls <strong><a href="https://www.11ty.dev/docs/data-cascade/">the data cascade</a></strong> The data cascade dictates the order of priority for sources of layout and style data for the static HTML files. While extremely technical, the cascade basically begins by applying global data to the template files, and then overwrites these data files as it moves deeper into the directory. Data files with the same name and same directory as the templating files are given the highest priority.</p>
+<p>Lastly, the YAML front matter in each templating file is applied, which overwrites values further up in the data cascade. This is helpful for applying specific properties, such as a permalink, to individual files.</p>
+<p>When a website goes live, the folder structure that contains the markdown files transfers directly to the generated static HTML files. So, for example, if a particular markdown file is located at <code>/src/welcome.md</code> then the subsequent HTML file will appear at <code>_site/src/welcome/index.html</code>.</p>
+<p>One caveat to 11ty is that it does not automatically copy non-supported file types (anything other than files written in the supported templating languages) into the <code>_site</code> directory. In order to request that these files are copied into the <code>_site</code> directory, use the <code>--formats =</code> flag on the command line to specify certain file types.</p>
+<p><a href="https://elmsln.github.io/hax11ty/">More information</a><br>
+<a href="https://github.com/mayormaier/11ty-hax11ty-blog">Source Repo</a></p>
+
+<hr>
+<ul><li>Next: <a href="/11ty-base-blog/posts/frontend-apis/">Integrating APIs with JavaScript in the Front End</a></li>
+</ul>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /11ty-base-blog/posts/11ty/ -->
+  </body>
+</html>

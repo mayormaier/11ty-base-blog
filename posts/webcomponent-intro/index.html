@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with open-wc and Web Components</title>
+    <meta name="description" content="Learning how to design web components under the open-wc standard">
+    <link rel="stylesheet" href="/11ty-base-blog/css/index.css">
+    <link rel="stylesheet" href="/11ty-base-blog/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/11ty-base-blog/feed/feed.xml" type="application/atom+xml" title="Andrew Maier Blog">
+    <link rel="alternate" href="/11ty-base-blog/feed/feed.json" type="application/json" title="Andrew Maier Blog">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/11ty-base-blog/">Andrew Maier Blog</a></h1>
+      <ul class="nav">
+        <li class="nav-item"><a href="/11ty-base-blog/">Home</a></li>
+        <li class="nav-item"><a href="/11ty-base-blog/posts/">Archive</a></li>
+        <li class="nav-item"><a href="/11ty-base-blog/about/">About Me</a></li>
+      </ul>
+    </header>
+
+    <main class="tmpl-post">
+      <h1>Getting Started with open-wc and Web Components</h1>
+
+<time datetime="2022-02-28">28 Feb 2022</time><a href="/11ty-base-blog/tags/javascript/" class="post-tag">javascript</a><a href="/11ty-base-blog/tags/webdev/" class="post-tag">webdev</a><a href="/11ty-base-blog/tags/webcomponents/" class="post-tag">webcomponents</a><a href="/11ty-base-blog/tags/tutorial/" class="post-tag">tutorial</a>
+
+<p><em>One month ago, I hadn't written a single line of JavaScript.</em></p>
+<p>I knew that JavaScript was important, but I seemed to be scared away by the massive ecosystem. As I looked deeper into the powerful things that you can do with JavaScript, I knew I had to get my feet wet. If you're looking to get started with open-wc and Web Components, you're going to need to understand the fundamentals of plain vanilla JavaScript. That might sound daunting, but <strong>getting started with Javascript is easier than you think.</strong> Today I'll show you why.</p>
+<h2 id="javascript-basics" tabindex="-1">JavaScript Basics <a class="direct-link" href="#javascript-basics" aria-hidden="true">#</a></h2>
+<p>Before starting my journey with JavaScript I had intermediate programming experience. Most of my academic career I have used Java, and I've written my personal projects in python. If you've never written <em>any</em> code, thats ok. We all start somewhere. Most language fundamental tutorials are beginner friendly.</p>
+<p>From a JavaScript newbie, <strong>I recommend the <a href="https://www.linkedin.com/learning-login/share?account=76811570&amp;forceAccount=false&amp;redirect=https%3A%2F%2Fwww.linkedin.com%2Flearning%2Fjavascript-essential-training%3Ftrk%3Dshare_ent_url%26shareId%3DtagQlFJZTBmp1uXvG335Dw%253D%253D">JavaScript Essential Training LinkedIn Learning Course</a>.</strong> This course helped me to get an understanding od the language as a whole while also understanding the JavaScript ecosystem. I'm about 30% of the way through it, and plan on banging out some more after I finish this article.</p>
+<p>One more thing- one of the biggest surprises for me is that <strong>JavaScript's native runtime is in the browser</strong> (Like Google Chrome). It took some getting used to, as I was more familiar with working completely in the command line. It is intuitive though, as a majority of JavaScript use cases involve the web in some capacity.</p>
+<h2 id="preparing-the-javascript-environment" tabindex="-1">Preparing the JavaScript Environment <a class="direct-link" href="#preparing-the-javascript-environment" aria-hidden="true">#</a></h2>
+<p>Unlike many languages (like Python, Java, and Go), you don't need to download a language interpreter to your machine. In fact, you run JavaScript code every time you visit <em>most</em> websites. So, if you have a modern web browser installed, then you're golden.</p>
+<h3 id="vs-code" tabindex="-1">VS Code <a class="direct-link" href="#vs-code" aria-hidden="true">#</a></h3>
+<p>I use Visual Studio Code to write my JavaScript Code. It is very lightweight bare bones out of the box, but it has a rich extension ecosystem that you can use to increase its functionality.</p>
+<p>Head over to <a href="https://code.visualstudio.com/">code.visualstudio.com</a> to install VS Code. Click on the big blue installation button to download the installer and follow the prompts when running it.</p>
+<p>One key extension that you will need when writing and testing vanilla JS is &quot;Live Server&quot;. This allows users to start a local web server for their current VS Code project with just one click.</p>
+<h3 id="node.js" tabindex="-1">Node.js <a class="direct-link" href="#node.js" aria-hidden="true">#</a></h3>
+<p>The next step is to download Node.JS. You want to get the current LTS (Long Term Support) version for increased stability. To install, head to <a href="https://nodejs.org/">nodejs.org</a> and click the nice big green &quot;LTS&quot; button. The site should recognize the OS that you are working with and give you the right installer.</p>
+<p>Node.JS enables you to run server-side JavaScript applications on your machine. Some people think that Node.JS is a JavaScript library or a framework or its own separate language, but <strong>Node.JS is none of those. Node.JS is a runtime for JavaScript.</strong></p>
+<p>After running the installer, check that Node.js was installed properly with <code>node -v</code></p>
+<p><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/njdfut6p7hnara15c1is.png" alt="node -v output"></p>
+<h3 id="npm" tabindex="-1">npm <a class="direct-link" href="#npm" aria-hidden="true">#</a></h3>
+<p>Node comes with a package manager for JavaScript called <a href="https://npmjs.com/">npm</a>. npm enables you to use other people's code in your projects without needing to go and write it yourself. Users can find npm packages on the npm registry, then use them in their code by using the Node require() function and defining them in their projects' <code>package.json</code> file, creating a dependency. All of this can sound confusing at first, but for now, just know that you can piggyback off of other projects with npm.</p>
+<p>To verify that npm was installed correctly when you installed Node.js, you can run <code>npm -v</code></p>
+<p><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4vxheujhvs0mzp23ec19.png" alt="npm -v output"></p>
+<h3 id="yarn" tabindex="-1">Yarn <a class="direct-link" href="#yarn" aria-hidden="true">#</a></h3>
+<p><a href="https://yarnpkg.com">Yarn</a> is another package manager for JavaScript. It is very similar to npm as it enables users to reuse code from other developers by helping them register dependencies in their project. It registers dependencies to the <code>package.json</code> just like npm.</p>
+<p>With newer versions of Node, yarn comes pre-installed and can be installed without much hassle. Simply run <code>corepack enable</code>.</p>
+<p>After doing this, you can verify that yarn is installed properly with <code>yarn -v</code>.</p>
+<p><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kvilukqczym3hsfmtwlo.png" alt="varn -v output"></p>
+<h2 id="initializing-an-open-wc-starter-project" tabindex="-1">Initializing an open-wc starter project <a class="direct-link" href="#initializing-an-open-wc-starter-project" aria-hidden="true">#</a></h2>
+<p>Now that the basic software is installed and running, a new open-wc component can be created. This process is also relatively simple. First, create a new directory where your project will live and navigate to it. Then, run <code>npm init @open-wc</code> If the command runs successfully, that means that you've installed everything correctly and you are beginning to work on your first web component!</p>
+<p><img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/aauwov28d7m9coqn8kz5.png" alt="Shows expected output of the initialization for open-wc"></p>
+<p>This is the screen that you will see with instructions to set up the project.</p>
+<p>I've initialized my starter project with the following settings:</p>
+<ul>
+<li>New project scaffold</li>
+<li>Web Component</li>
+<li>Linting, Testing, and Demoing enabled</li>
+<li>No TypeScript</li>
+<li>installed using yarn</li>
+</ul>
+<p>Once these settings are selected, a browser window should open and connect to the Node web server that is serving the project. If that does not happen automatically, or you want to start up the server at a later date, simply run <code>npm start</code>. Boom! Now you can take a look at how web components work on the web.</p>
+<h2 id="analyzing-a-web-component" tabindex="-1">Analyzing a Web Component <a class="direct-link" href="#analyzing-a-web-component" aria-hidden="true">#</a></h2>
+<p>Web Components, even in their most simple form have numerous files that provide functionality. Each of these files has a unique purpose that enables web components to function as the easy to use, reusable HTML elements.</p>
+<p>First, lets look at the <code>index.html</code> of this project, the file that the browser loads when this project is opened.</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><br><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>module<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript"><br>    <span class="token keyword">import</span> <span class="token punctuation">{</span> html<span class="token punctuation">,</span> render <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'lit'</span><span class="token punctuation">;</span><br>    <span class="token keyword">import</span> <span class="token string">'../hello-world.js'</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token string">'Hello World!'</span><span class="token punctuation">;</span><br>    <span class="token comment">// takes elements with id=demo and replaces with hello-world element</span><br>    <span class="token function">render</span><span class="token punctuation">(</span><br>      html<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string"><br>        &lt;hello-world .title=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>title<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">><br>          some light-dom<br>        &lt;/hello-world><br>      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span><br>      document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#demo'</span><span class="token punctuation">)</span><br>    <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
+<p>In this file, there is a div with id=demo, that is then replaced by the <code>&lt;hello-world&gt;</code> element when the script is loaded. The <code>&lt;hello-world&gt;</code> element is hydrated with content referenced in <code>hello-world.js</code>, which is imported to the script.</p>
+<pre class="language-javascript"><code class="language-javascript"><span class="token comment">// imports the HelloWorld class from the source files</span><br><span class="token keyword">import</span> <span class="token punctuation">{</span> HelloWorld <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./src/HelloWorld.js'</span><span class="token punctuation">;</span><br><br><span class="token comment">// defines the "&lt;hello-world>" HTML tag from the HelloWorld class in the imported module</span><br>window<span class="token punctuation">.</span>customElements<span class="token punctuation">.</span><span class="token function">define</span><span class="token punctuation">(</span><span class="token string">'hello-world'</span><span class="token punctuation">,</span> HelloWorld<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>hello-world.js</code> defines the <code>&lt;hello-world&gt;</code> HTML tag with the HelloWorld Web Component.</p>
+<p>The meat of the element is found in <code>./src/HelloWorld.js</code>. This component defines the functions and properties of the HelloWorld web component, represented as a class that extends the base HelloWorld class. For example, one of the functions called <code>__increment()</code> increments the counter property of the HelloWorld object every time a button in the component is pressed.</p>
+<p>Many of the other files that come with the base &quot;hello-world&quot; web component serve important purposes also. I've annotated many of the files found in this project and <a href="https://github.com/mayormaier/edtechjoker-lab1/">uploaded them to a GitHub repository that can be found here.</a></p>
+
+<hr>
+<ul><li>Previous: <a href="/11ty-base-blog/posts/frontend-apis/">Integrating APIs with JavaScript in the Front End</a></li>
+</ul>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /11ty-base-blog/posts/webcomponent-intro/ -->
+  </body>
+</html>
