@@ -95,6 +95,12 @@ module.exports = function(eleventyConfig) {
     ghostMode: false
   });
 
+  //adjust PathPrefix dual for Vercel and GitHub Pages
+  let deployPath = '/';
+  if (process.env.deployEndpoint != 'vercel'){
+      deployPath = '/11ty-base-blog/';
+  }
+
   return {
     // Control which files Eleventy will process
     // e.g.: *.md, *.njk, *.html, *.liquid
@@ -122,7 +128,7 @@ module.exports = function(eleventyConfig) {
     // You can also pass this in on the command line using `--pathprefix`
 
     // Optional (default is shown)
-    pathPrefix: "/11ty-base-blog/",
+    pathPrefix: deployPath,
     // -----------------------------------------------------------------
 
     // These are all optional (defaults are shown):
